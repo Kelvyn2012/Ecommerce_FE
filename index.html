@@ -131,12 +131,18 @@
                         <div id="passwordStrengthText" class="password-strength-text"></div>
                     </div>
                     <div class="password-requirements">
-                        <small id="passwordReq1" class="req-item">✗ At least 8 characters</small>
+                        <small id="passwordReq1" class="req-item">✗ At least 6 characters</small>
                         <small id="passwordReq2" class="req-item">✗ Contains uppercase letter</small>
                         <small id="passwordReq3" class="req-item">✗ Contains lowercase letter</small>
                         <small id="passwordReq4" class="req-item">✗ Contains number</small>
                         <small id="passwordReq5" class="req-item">✗ Contains special character</small>
                     </div>
+                </div>
+                <!-- NEW: Confirm Password Field -->
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                    <div id="passwordMatchIndicator" class="password-match"></div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Register</button>
                 <p class="error-message" id="registerError"></p>
