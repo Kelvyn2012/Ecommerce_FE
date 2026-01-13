@@ -46,17 +46,12 @@ class APIClient {
         });
     }
 
-   async register(username, email, password, passwordConfirm) {
-    return this.request('/auth/register/', {
-        method: 'POST',
-        body: JSON.stringify({ 
-            username, 
-            email, 
-            password,
-            password_confirm: passwordConfirm 
-        }),
-    });
-}
+    async register(username, email, password) {
+        return this.request('/auth/register/', {
+            method: 'POST',
+            body: JSON.stringify({ username, email, password }),
+        });
+    }
 
     // Products endpoints
     async getProducts(params = {}) {
