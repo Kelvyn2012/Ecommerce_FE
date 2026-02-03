@@ -133,6 +133,11 @@ function checkPasswordStrength(password) {
     return { level, requirements, strength };
 }
 
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
 // Update password strength UI
 function updatePasswordStrength(password) {
     const strengthBar = document.getElementById('passwordStrengthBar');
@@ -177,13 +182,28 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const username = document.getElementById('registerUsername').value;
     const email = document.getElementById('registerEmail').value;
     const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
     const errorEl = document.getElementById('registerError');
+
+    // Email Validation
+    if (!isValidEmail(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        toastManager.warning('Invalid email format.');
+        return;
+    }
 
     // Check password strength
     const { level } = checkPasswordStrength(password);
     if (!level || level === 'weak') {
         errorEl.textContent = 'Please choose a stronger password';
         toastManager.warning('Password is too weak. Please meet all requirements.');
+        return;
+    }
+
+    // Check password match
+    if (password !== confirmPassword) {
+        errorEl.textContent = 'Passwords do not match.';
+        toastManager.warning('Passwords do not match.');
         return;
     }
 
@@ -196,8 +216,8 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         // Reset password strength UI
         updatePasswordStrength('');
 
-        // Show success message
-        toastManager.success('Registration successful! You are now logged in.');
+        // Show success message with verification instruction
+        toastManager.success('Registration successful! Please check your email to verify your account.');
     } catch (error) {
         errorEl.textContent = error.message || 'Registration failed. Please try again.';
     }
